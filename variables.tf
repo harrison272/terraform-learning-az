@@ -1,7 +1,7 @@
 variable "location" {
  type = string
  description = "Azure datacenter location"
- default = "Uk South"
+ default = "ukwest"
 }
 
 variable "environment" {

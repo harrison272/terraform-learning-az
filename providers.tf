@@ -12,3 +12,12 @@ provider "azurerm" {
   features {}
   resource_provider_registrations = "all"
 }
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-Terrform-state-dev"
+    storage_account_name = "sttfstatehb01"
+    container_name       = "terraform-state"
+    key                  = "terraform.tfstate"
+  }
+}
