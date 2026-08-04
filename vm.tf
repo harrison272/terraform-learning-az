@@ -1,8 +1,8 @@
 resource "azurerm_linux_virtual_machine" "Linux-VM01" {
-  name = "linux-vm-01"
+  name = "linux-vm-${var.environment}-01"
   resource_group_name = azurerm_resource_group.Terraform_RG.name
   location = azurerm_resource_group.Terraform_RG.location
-  size = "Standard_B2ms"
+  size = "Standard_D2as_v7"
   admin_username = "adminuser"
   network_interface_ids = [azurerm_network_interface.Terraform_NIC.id]
 
