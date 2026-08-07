@@ -1,7 +1,8 @@
 resource "azurerm_network_interface" "Terraform_NIC" {
-  name                = "nic-terraform-${var.environment}-01"
+  name = format("nic-terraform-${var.environment}-%02d", count.index + 1)
   resource_group_name = var.resource_group_name
   location            = var.location
+  count = var.instance_count
 
   ip_configuration {
     name                          = "internal"
@@ -11,17 +12,19 @@ resource "azurerm_network_interface" "Terraform_NIC" {
 }
 
 resource "azurerm_network_interface_security_group_association" "Terraform_NICSG" {
-  network_interface_id      = azurerm_network_interface.Terraform_NIC.id
+  network_interface_id      = azurerm_network_interface.Terraform_NIC[count.index].id
   network_security_group_id = var.nsg_id
+  count = var.instance_count
 }
 
-resource "azurerm_linux_virtual_machine" "Linux-VM01" {
-  name = "linux-vm-${var.environment}-01"
+resource "azurerm_linux_virtual_machine" "Linux-VM" {
+  name = format("linux-vm-${var.environment}-%02d",count.index + 1)
   resource_group_name = var.resource_group_name
   location = var.location
   size = var.vm_size
   admin_username = "adminuser"
-  network_interface_ids = [azurerm_network_interface.Terraform_NIC.id]
+  network_interface_ids = [azurerm_network_interface.Terraform_NIC[count.index].id]
+  count = var.instance_count
 
   os_disk {
     caching = "ReadWrite"

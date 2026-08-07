@@ -32,3 +32,8 @@ variable "admin_ssh_public_key" {
   type        = string
   description = "The public SSH key for the virtual machine"
 }
+
+variable "instance_count" {
+  type        = string
+  description = "The public SSH key for the virtual machine"
+}
