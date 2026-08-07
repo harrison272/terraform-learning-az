@@ -43,3 +43,10 @@ resource "azurerm_linux_virtual_machine" "Linux-VM" {
     version = "latest"
     }
 }
+
+resource "azurerm_network_interface_backend_address_pool_association" "Terrform_LBA" {
+  network_interface_id = azurerm_network_interface.Terraform_NIC[count.index].id
+  ip_configuration_name = "internal"
+  backend_address_pool_id = var.lb_pool_id
+  count = var.instance_count
+}

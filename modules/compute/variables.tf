@@ -37,3 +37,8 @@ variable "instance_count" {
   type        = string
   description = "The public SSH key for the virtual machine"
 }
+
+variable "lb_pool_id" {
+  type = string
+  description = "The ID of the Load balancer pool"
+}

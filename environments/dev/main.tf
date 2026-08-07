@@ -19,9 +19,18 @@ module "compute" {
   nsg_id      = module.network.nsg_id
   resource_group_name = azurerm_resource_group.Terraform_RG.name
   admin_ssh_public_key = file("${path.module}/terraform-pub.pub")
-  instance_count = "5"
+  instance_count = "3"
+  lb_pool_id = module.loadbalancer.lb_pool_id
 }
 
+module "loadbalancer" {
+  source             = "../../modules/loadbalancer"
+  
+  # Module Input Name = Local Environment Variable
+  environment        = var.environment
+  location           = var.location
+  resource_group_name = azurerm_resource_group.Terraform_RG.name
+}
 
 resource "azurerm_resource_group" "Terraform_RG" {
   name     = "rg-terraform-${var.environment}-01"
