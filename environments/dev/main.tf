@@ -19,6 +19,7 @@ module "compute" {
   nsg_id      = module.network.nsg_id
   resource_group_name = azurerm_resource_group.Terraform_RG.name
   admin_ssh_public_key = file("${path.module}/terraform-pub.pub")
+  instance_count = "5"
 }
 
 
