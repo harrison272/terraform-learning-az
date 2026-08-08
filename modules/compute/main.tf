@@ -42,6 +42,8 @@ resource "azurerm_linux_virtual_machine" "Linux-VM" {
     sku = "server"
     version = "latest"
     }
+
+  custom_data = filebase64("${path.module}/install-nginx.sh")
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "Terrform_LBA" {

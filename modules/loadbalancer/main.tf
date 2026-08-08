@@ -21,3 +21,21 @@ resource "azurerm_lb_backend_address_pool" "Terraform_LB_Pool" {
   name = "lb-terraform-${var.environment}-linux-pool"
   loadbalancer_id = azurerm_lb.Terraform_LB.id
 }
+
+resource "azurerm_lb_probe" "Terraform_LB_Probe" {
+  name = "lb-terraform-${var.environment}-probe"
+  loadbalancer_id = azurerm_lb.Terraform_LB.id
+  port = 80
+  protocol = "Tcp"
+}
+
+resource "azurerm_lb_rule" "Terraform_LB_Rule" {
+  name = "lb-terraform-${var.environment}-http-rule"
+  loadbalancer_id = azurerm_lb.Terraform_LB.id
+  protocol = "Tcp"
+  frontend_port = 80
+  backend_port = 80
+  frontend_ip_configuration_name = azurerm_lb.Terraform_LB.frontend_ip_configuration[0].name
+  backend_address_pool_ids = [azurerm_lb_backend_address_pool.Terraform_LB_Pool.id]
+  probe_id = azurerm_lb_probe.Terraform_LB_Probe.id
+}
