@@ -32,3 +32,8 @@ variable "lb_pool_id" {
   type = string
   description = "The ID of the Load balancer pool"
 }
+
+variable "lb_nat_pool_id" {
+  type = string
+  description = "The ID of the Load Balancer NAT pool"
+}
