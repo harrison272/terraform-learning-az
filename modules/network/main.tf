@@ -26,7 +26,7 @@ resource "azurerm_network_security_rule" "Terraform_NSG_Rule_SSH" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_ip
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.Terraform_NSG.name
@@ -44,4 +44,9 @@ resource "azurerm_network_security_rule" "Terraform_NSG_Rule_HTTP" {
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.Terraform_NSG.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "Terraform_SNSG" {
+  subnet_id = azurerm_subnet.Terraform_SN.id
+  network_security_group_id = azurerm_network_security_group.Terraform_NSG.id
 }

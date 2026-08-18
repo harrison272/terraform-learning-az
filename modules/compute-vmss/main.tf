@@ -37,6 +37,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "Linux-VMSS" {
     version = "latest"
   }
 
+  lifecycle {
+    ignore_changes = ["instances"]
+  }
+
   custom_data = filebase64("${path.module}/install-nginx.sh")
 
 }

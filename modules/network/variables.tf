@@ -22,3 +22,8 @@ variable "resource_group_name" {
   type        = string
   description = "The name of the Resource Group"
 }
+
+variable "source_ip" {
+  type = string
+  description = "Inbound IP address of laptop"
+}

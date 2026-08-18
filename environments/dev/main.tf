@@ -5,6 +5,7 @@ module "network" {
   vnet_address_space = var.vnet_address_space
   subnet_prefix      = var.subnet_prefix
   resource_group_name = azurerm_resource_group.Terraform_RG.name
+  source_ip           = var.source_ip
 }
 
 #module "compute" {
