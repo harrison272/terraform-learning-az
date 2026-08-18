@@ -1,7 +1,5 @@
 module "network" {
   source             = "../../modules/network"
-  
-  # Module Input Name = Local Environment Variable
   environment        = var.environment
   location           = var.location
   vnet_address_space = var.vnet_address_space
@@ -22,10 +20,21 @@ module "network" {
 #  lb_pool_id = module.loadbalancer.lb_pool_id
 #}
 
+module "compute-vmss" {
+  source             = "../../modules/compute-vmss"
+  environment        = var.environment
+  location           = var.location
+  subnet_id          = module.network.subnet_id
+  nsg_id             = module.network.nsg_id
+  resource_group_name = azurerm_resource_group.Terraform_RG.name
+  admin_ssh_public_key = file("${path.module}/terraform-pub.pub")
+  vm_sku             = var.vm_size
+  lb_pool_id         = module.loadbalancer.lb_pool_id
+  lb_nat_pool_id     = module.loadbalancer.lb_nat_pool_id
+}
+
 module "loadbalancer" {
   source             = "../../modules/loadbalancer"
-  
-  # Module Input Name = Local Environment Variable
   environment        = var.environment
   location           = var.location
   resource_group_name = azurerm_resource_group.Terraform_RG.name

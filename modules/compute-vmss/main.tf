@@ -2,7 +2,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "Linux-VMSS" {
   name = "linux-vmss-${var.environment}-01"
   resource_group_name = var.resource_group_name
   location = var.location
-  sku = "Standard_D2as_v7"
+  sku = var.vm_sku
   admin_username = "adminuser"
   upgrade_mode = "Automatic"
 

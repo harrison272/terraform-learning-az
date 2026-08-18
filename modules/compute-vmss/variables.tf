@@ -37,3 +37,8 @@ variable "lb_nat_pool_id" {
   type = string
   description = "The ID of the Load Balancer NAT pool"
 }
+
+variable "vm_sku" {
+  type        = string
+  description = "Azure VMSS SKU size"
+}

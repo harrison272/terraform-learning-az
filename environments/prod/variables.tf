@@ -17,7 +17,6 @@ variable "subnet_prefix" {
   type        = list(string)
   description = "CIDR block for the Subnet"
 }
-
 variable "vm_size" {
   type        = string
   description = "Azure VM SKU size"
